@@ -1,5 +1,4 @@
-import _ from 'lodash';
-import './app.css';
+import './app.scss';
 import webpackImg from './asdf.png';
 
 function component() {
@@ -8,7 +7,9 @@ function component() {
   // Lodash, currently included via a script, is required for this line to work
   // Lodash, now imported by this script
   element.innerHTML = `<img src=${webpackImg} alt="sqrt"/>`;
-  alert('a');
+  const arr = [1, 2, 3, [4, 5]];
+  console.log(arr.flat(2));
+  const a = new Promise((res, rej) => res());
 
   return element;
 }
