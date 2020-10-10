@@ -6,12 +6,21 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    main: './src/app.js',
+    main: './src/app.ts',
   },
   output: {
-    path: path.resolve('./dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
+
+  devServer: {
+    port: 9000,
+  },
+
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+
   module: {
     rules: [
       {
@@ -19,7 +28,7 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.png$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -30,9 +39,16 @@ module.exports = {
         ],
       },
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         exclude: /node_modules/,
         loader: 'babel-loader', // 바벨 로더를 추가한다
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-typescript'],
+          plugins: [
+            '@babel/proposal-class-properties',
+            '@babel/proposal-object-rest-spread',
+          ],
+        },
       },
     ],
   },
